@@ -10,7 +10,7 @@
 namespace LanguageGames
 {
 	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// Main Page that shows all output of the games.
 	/// </summary>
 	public ref class MainPage sealed
 	{
@@ -18,14 +18,22 @@ namespace LanguageGames
 		MainPage();
 
 	private:
-		std::array<char, 21> consonants = { 'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z' };
-		std::array<char, 5> vowels = { 'a','e','i','o','u' };
-		std::array<std::string, 21> tutOut = { std::string("bub"), std::string("cash"), std::string("dud"), std::string("fuf"), std::string("gug"), std::string("hash"), std::string("jay"), std::string("kuck"), std::string("lul"), std::string("mum"), std::string("nun"), std::string("pub"), std::string("quack"), std::string("Rug"), std::string("sus"), std::string("tut"), std::string("vuv"), std::string("wack"), std::string("ex"), std::string("yub"), std::string("zub") };
+		// Updating to use vectors, because they're easier to work with than arrays.
+		std::vector<char> consonants = { 'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z' };
+		std::vector<char> vowels = { 'a','e','i','o','u' };
+		std::vector<char> wordEnds = { '.', '?', '!', ',', '/', '\\' };
+		// Shifting to "Long" strings to accomodate wstring.
+		std::vector<std::wstring> tutOut = { L"bub", L"cash", L"dud", L"fuf", L"gug", L"hash", L"jay", L"kuck", L"lul", L"mum", L"nun", L"pub", L"quack", L"Rug", L"sus", L"tut", L"vuv", L"wack", L"ex", L"yub", L"zub" };
 
 		void plainBoxChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e);
-		Platform::String ^ doEncryption(std::wstring input, int strLen);
-		Platform::String ^ doTutnese(std::wstring input, int strLen);
-		int isConsonant(char toCheck);
-		int isVowel(char toCheck);
+		Platform::String ^ doEncryption(std::wstring input);
+		Platform::String ^ doTutnese(std::wstring input);
+		Platform::String ^ doPigLatin(std::wstring input);
+		int GetConsonant(char toCheck);
+		int GetVowel(char toCheck);
+		bool ArrayContains(std::vector<char> haystack, wchar_t needle);
+		std::vector<std::wstring> Split(std::wstring sentence, char separator);
+		std::wstring STR2WSTR(const char * input);
+		std::wstring STR2WSTR(std::string input);
 	};
 }
